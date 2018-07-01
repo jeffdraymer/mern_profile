@@ -4,19 +4,45 @@ const router = express.Router();
 const gravatar = require("gravatar");
 //Used for encrypting password
 const bcrypt = require("bcryptjs");
-
+//JSON Web Token
+const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys");
+const passport = require("passport");
 //Load User model
 const User = require("../../models/User");
+//Load Register validation
+const validateRegisterInput = require("../../validation/register");
+//Load Login validation
+const validateLoginInput = require("../../validation/login");
 
 // @route /api/users/
 // @desc Tests users route
 // @access Public
 router.get("/", (req, res) => res.json({ message: "Users Works" }));
 
+// @route /api/users/current
+// @desc Return current user
+// @access Private
+
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json("Success");
+  }
+);
+
 // @route /api/users/register
 // @desc register users route
 // @access Public
 router.post("/register", (req, res) => {
+  //Validate user input
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
       return res.status(400).json({ email: "Email already exists" });
@@ -55,6 +81,12 @@ router.post("/register", (req, res) => {
 // @access Publicn
 
 router.post("/login", (req, res) => {
+  //Validate user input
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   const email = req.body.email;
   const password = req.body.password;
 
@@ -62,15 +94,28 @@ router.post("/login", (req, res) => {
   User.findOne({ email }).then(user => {
     //Check if a user was returned
     if (!user) {
-      return res.status(404).json({ email: "User was not found" });
+      errors.email = "User was not found";
+      return res.status(404).json({ errors });
     }
     //Check passowrd
     bcrypt.compare(password, user.password).then(isMatch => {
       console.log(isMatch);
       if (isMatch) {
-        res.json({ message: "Success" });
+        //User matched
+        //Create JWT payload
+        const payload = { id: user.id, name: user.name, avatar: user.avatar };
+        //Sign Token
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 3600 },
+          (err, token) => {
+            res.json({ success: true, token: "Bearer " + token });
+          }
+        );
       } else {
-        return res.status(400).json({ message: "Password is incorrect" });
+        errors.password = "Password is incorrect";
+        return res.status(400).json({ errors });
       }
     });
   });
