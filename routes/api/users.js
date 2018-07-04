@@ -10,10 +10,11 @@ const keys = require("../../config/keys");
 const passport = require("passport");
 //Load User model
 const User = require("../../models/User");
-//Load Register validation
+
+//Load validation
 const validateRegisterInput = require("../../validation/register");
-//Load Login validation
 const validateLoginInput = require("../../validation/login");
+const validateExperienceInput = require("../../validation/experience");
 
 // @route /api/users/
 // @desc Tests users route
