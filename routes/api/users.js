@@ -79,11 +79,12 @@ router.post("/register", (req, res) => {
 
 // @route /api/users/login
 // @desc Login User / Return JWT token
-// @access Publicn
+// @access Public
 
 router.post("/login", (req, res) => {
   //Validate user input
   const { errors, isValid } = validateLoginInput(req.body);
+  
 
   if (!isValid) {
     return res.status(400).json(errors);
@@ -96,7 +97,7 @@ router.post("/login", (req, res) => {
     //Check if a user was returned
     if (!user) {
       errors.email = "User was not found";
-      return res.status(404).json({ errors });
+      return res.status(404).json( errors );
     }
     //Check passowrd
     bcrypt.compare(password, user.password).then(isMatch => {
@@ -116,7 +117,7 @@ router.post("/login", (req, res) => {
         );
       } else {
         errors.password = "Password is incorrect";
-        return res.status(400).json({ errors });
+        return res.status(400).json( errors );
       }
     });
   });

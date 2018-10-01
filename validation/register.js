@@ -3,13 +3,11 @@ const isEmpty = require("./is-empty");
 
 module.exports = function validateRegisterInput(data) {
   let errors = {};
-
+  
   data.name = !isEmpty(data.name) ? data.name : "";
   data.email = !isEmpty(data.email) ? data.email : "";
   data.password = !isEmpty(data.password) ? data.password : "";
-  data.confirmpassword = !isEmpty(data.confirmpassword)
-    ? data.confirmpassword
-    : "";
+  data.confirmPassword = !isEmpty(data.confirmPassword) ? data.confirmPassword : "";
 
   //Name validation
   if (!Validator.isEmpty(data.name)) {
@@ -45,20 +43,20 @@ module.exports = function validateRegisterInput(data) {
   } else {
     errors.password = "Please enter a password";
   }
-  //confrim password validation
-  if (!Validator.isEmpty(data.confirmpassword)) {
+  //confrim password validation  
+  if (!Validator.isEmpty(data.confirmPassword)) {
     if (
-      !Validator.isLength(data.confirmpassword, {
+      !Validator.isLength(data.confirmPassword, {
         min: 6,
         max: 30
       })
     ) {
-      errors.confirmpassword = "Password must be between 6 and 30 characters";
-    } else if (!Validator.equals(data.password, data.confirmpassword)) {
-      errors.confirmpassword = "Confirm password does not match password";
+      errors.confirmPassword = "Password must be between 6 and 30 characters";
+    } else if (!Validator.equals(data.password, data.confirmPassword)) {
+      errors.confirmPassword = "Confirm password does not match password";
     }
   } else {
-    errors.confirmpassword = "Please enter a confirm password";
+    errors.confirmPassword = "Please enter a confirm password";
   }
 
   return { errors, isValid: isEmpty(errors) };
