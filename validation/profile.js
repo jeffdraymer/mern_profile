@@ -14,9 +14,8 @@ module.exports = function validateProfileInput(data) {
       errors.handle = "Handle must be between 2 and 40 characters";
     }
   } else {
-    errors.hanlde = "Handle is required";
+    errors.handle = "Handle is required";
   }
-
   //Status validation
   if (Validator.isEmpty(data.status)) {
     errors.status = "Status is required";
@@ -30,7 +29,7 @@ module.exports = function validateProfileInput(data) {
   //Website Validation
   if (!isEmpty(data.website)) {
     if (!Validator.isURL(data.website)) {
-      errors.website = "Must be a valid email";
+      errors.website = "Must be a valid URL";
     }
   }
 

@@ -1,13 +1,15 @@
 import React from 'react';
 import classnames from 'classnames';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
+
+//Will define the basic format for user input fields
 const TextFieldGroup =  ({
     name,
     placeholder,
     value,
     label,
-    errror,
+    error, 
     info,
     type,
     onChange,
@@ -30,15 +32,15 @@ const TextFieldGroup =  ({
 }
 
 TextFieldGroup.propTypes = {
-    name: PropType.string.isRequired,
-    placeholder: PropType.string.isRequired,
-    value: PropType.string.isRequired,
-    label: PropType.string,
-    errror: PropType.string,
-    info: PropType.string.isRequired,
-    type: PropType.string.isRequired,
-    onChange: PropType.func.isRequired,
-    disabled: PropType.string
+    name: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string,
+    errror: PropTypes.string,
+    info: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    disabled: PropTypes.string
 }
 
 TextFieldGroup.defaultProps = {

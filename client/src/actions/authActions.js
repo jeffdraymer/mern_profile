@@ -20,7 +20,6 @@ export const registeruser = (userData, history) => dispatch => {
 
 //Login Get user token
 export const loginuser = (userdata, history) => dispatch => {
-    console.log('called action');
     axios
         .post('api/users/login', userdata)
         .then(res => {            
