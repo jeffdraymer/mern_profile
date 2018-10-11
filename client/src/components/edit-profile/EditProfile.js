@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 import { createProfile, getCurrentProfile } from '../../actions/profileActions'
 
@@ -103,7 +103,7 @@ class EditProfile extends Component {
             twitter: this.state.twitter,
             facebook: this.state.facebook,
             linkedin: this.state.linkedin,
-            yoututbe: this.state.yoututbe,
+            youtube: this.state.youtube,
             instagram: this.state.instagram
         }
         this.props.createProfile(profileData, this.props.history);
@@ -185,6 +185,9 @@ class EditProfile extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
+                            <Link to="/dashboard" className="btn btn-light">
+                                Go Back
+                              </Link>
                             <h1 className="display-4 text-center">Edit Your Profile</h1>
                            
                             <small className="d-block pb-3">* = required fields</small>
@@ -287,4 +290,9 @@ const mapStateToProps = state => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter(EditProfile));
+const mapDispatchToProps = {
+    createProfile, 
+    getCurrentProfile
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditProfile));

@@ -66,15 +66,13 @@ router.get("/all", (req, res) => {
 
 router.get("/handle/:handle", (req, res) => {
   const errors = {};
-
   Profile.findOne({ handle: req.params.handle })
-    .populate("user", ["user", "avatar"])
+    .populate("user", ["user","name", "avatar"])
     .then(profile => {
       if (!profile) {
         errors.noprofile = "No profile found for this user";
         res.status(404).json(errors);
       }
-
       //If profile is found then return it
       res.json(profile);
     })
@@ -113,12 +111,11 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateProfileInput(req.body);
-
     //Check Validation
     if (!isValid) {
       return res.status(400).json(errors);
-    }
-
+    }    
+    
     //Get profile fields
     const profileFields = {};
     //initialize oject for social media links
@@ -144,6 +141,7 @@ router.post(
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
     if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
     if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
+
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {
@@ -219,7 +217,7 @@ router.post(
     Profile.findOne({ user: req.user.id }).then(profile => {
       const newEducation = {
         school: req.body.school,
-        degree: req.body.degree,
+        certification: req.body.certification,
         fieldOfStudy: req.body.fieldOfStudy,
         from: req.body.from,
         to: req.body.to,
@@ -269,7 +267,7 @@ router.delete(
     Profile.findOne({ user: req.user.id })
       .then(profile => {
         //Get remove index
-        const removeIndex = profile.experience
+        const removeIndex = profile.education
           .map(item => item.id)
           .indexOf(req.params.edu_id);
 

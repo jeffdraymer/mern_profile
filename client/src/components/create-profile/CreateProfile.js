@@ -60,12 +60,12 @@ class CreateProfile extends Component {
             linkedin: this.state.linkedin,
             yoututbe: this.state.yoututbe,
             instagram: this.state.instagram
-        }
+        };
         this.props.createProfile(profileData, this.props.history);
     }
 
     onChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ [e.target.name]: e.target.value });
     }
    
  
@@ -246,4 +246,8 @@ const mapStateToProps = state => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps, {createProfile})(withRouter(CreateProfile))
+const mapDispatchToProps = {
+    createProfile
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CreateProfile))

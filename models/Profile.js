@@ -1,6 +1,14 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+//Delete any empty fields
+function deleteEmpty(e){
+  if(e === null){
+    return undefined;
+  }
+  return e;
+}
+
 const ProfileSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
@@ -29,7 +37,8 @@ const ProfileSchema = new Schema({
     required: true
   },
   bio: {
-    type: String
+    type: String,
+    set: deleteEmpty
   },
   githubusername: {
     type: String
@@ -42,18 +51,18 @@ const ProfileSchema = new Schema({
       from: { type: Date, required: true },
       to: { type: Date },
       current: { type: Boolean, default: false },
-      desciption: { type: String }
+      description: { type: String }
     }
   ],
   education: [
     {
       fieldOfStudy: { type: String, required: true },
       school: { type: String, required: true },
-      degree: { type: String, required: true },
+      certification: { type: String, required: true },
       from: { type: Date, required: true },
       to: { type: Date },
       current: { type: Boolean, default: false },
-      desciption: { type: String }
+      description: { type: String }
     }
   ],
   social: {

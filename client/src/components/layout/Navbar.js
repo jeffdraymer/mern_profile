@@ -78,5 +78,11 @@ Navbar.propTypes = {
 const mapStateToProps = (state) => ({
     auth: state.auth
 });
+
+const mapDispatchToProps = {
+    logoutuser, 
+    clearCurrentProfile
+}
+
 //Export that the mapStateToProps, along with any actions to be used
-export default connect(mapStateToProps, { logoutuser, clearCurrentProfile })(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { getCurrentProfile, deleteAccount } from '../../actions/profileActions';
 import Spinner from '../common/Spinner';
 import ProfileActions from './ProfileActions';
+import Experience from './Experience';
+import Education from './Education';
 
 
  class Dashboard extends Component {
@@ -31,7 +33,8 @@ import ProfileActions from './ProfileActions';
           <div>
             <p className="lead text-muted">Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link></p>
           <ProfileActions/>
-          {/* TODO: EXPERIENCE AND EDUCATION*/}
+          <Experience experience={profile.experience}/> 
+          <Education education={profile.education} /> 
           <div style={{ marginBottom: '60px' }}>
             <button onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">Delete My Acccount</button>
           </div>
@@ -75,4 +78,9 @@ Dashboard.propTypes = {
   auth: state.auth
  })
 
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);
+ const mapDispatchToProps = {
+   getCurrentProfile, 
+   deleteAccount
+ }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
