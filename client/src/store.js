@@ -1,7 +1,7 @@
 
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import rootReducer from './reducers'; 
+import rootReducer from './reducers'; //Will bring in the combineReducer which will give access to all reducer files
 
 const initialState = {}
 

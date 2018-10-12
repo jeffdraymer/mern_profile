@@ -5,7 +5,7 @@ module.exports = function validatePostInput(data) {
   let errors = {};
 
   data.text = !isEmpty(data.text) ? data.text : "";
-
+  
   //text validation
   if (!Validator.isEmpty(data.text)) {
     if (!Validator.isLength(data.text, { min: 10, max: 300 })) {
