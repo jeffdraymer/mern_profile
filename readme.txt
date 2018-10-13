@@ -8,4 +8,5 @@ This application is using MERN Stack along with the following technolgies
 -redux 
 -redux-thunk, middleware to process ajax requests
 -Chrome extensions --redux-dev-tools, to display redux in the browser window while developing
--react-moment -using to format dates (must also import base react moment module)
+-react-moment -using to format dates (must also import base react moment module
+-heroku - used as the mounting application to push the app to production
