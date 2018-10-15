@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { logoutuser } from '../../actions/authActions';
-import { clearCurrentProfile } from '../../actions/profileActions'
+import { clearCurrentProfile } from '../../actions/profileActions';
 
  class Navbar extends Component {
     onLogoutClick(e) {

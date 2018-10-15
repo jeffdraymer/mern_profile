@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 //Used to format Dates
 import Moment from 'react-moment';
-import { deleteEducation } from '../../actions/profileActions'
+import { deleteEducation } from '../../actions/profileActions';
 
 
 class Education extends Component {

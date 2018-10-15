@@ -1,4 +1,4 @@
-import { ADD_POST, GET_POSTS, POST_LOADING, DELETE_POST, GET_POST } from '../actions/types'
+import { ADD_POST, GET_POSTS, POST_LOADING, DELETE_POST, GET_POST } from '../actions/types';
 
 const inintialState = {
     posts: [], //Will hold all of the posts which have been added by users

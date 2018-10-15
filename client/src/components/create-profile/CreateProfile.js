@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 
-import { createProfile } from '../../actions/profileActions'
+import { createProfile } from '../../actions/profileActions';
 
 //Components for formatting the page
-import TextFieldGroup from '../common/TextFieldGroup'
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup'
-import InputGroup from '../common/InputGroup'
-import SelectListGroup from '../common/SelectListGroup'
+import TextFieldGroup from '../common/TextFieldGroup';
+import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import InputGroup from '../common/InputGroup';
+import SelectListGroup from '../common/SelectListGroup';
 
 
 class CreateProfile extends Component {

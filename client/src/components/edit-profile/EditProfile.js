@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom';
 
-import { createProfile, getCurrentProfile } from '../../actions/profileActions'
+import { createProfile, getCurrentProfile } from '../../actions/profileActions';
 
 //Components for formatting the page
-import TextFieldGroup from '../common/TextFieldGroup'
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup'
-import InputGroup from '../common/InputGroup'
-import SelectListGroup from '../common/SelectListGroup'
+import TextFieldGroup from '../common/TextFieldGroup';
+import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import InputGroup from '../common/InputGroup';
+import SelectListGroup from '../common/SelectListGroup';
 
-import isEmpty from '../../validation/is-empty'
+import isEmpty from '../../validation/is-empty';
 
 class EditProfile extends Component {
     constructor(props) {

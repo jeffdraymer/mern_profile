@@ -1,4 +1,4 @@
-import { GET_ERRORS, CLEAR_ERRORS } from '../actions/types' 
+import { GET_ERRORS, CLEAR_ERRORS } from '../actions/types';
 
 //object will be filled with any errors returned from NODE
 const initialState = {};
