@@ -113,6 +113,7 @@ router.post(
     const { errors, isValid } = validateProfileInput(req.body);
     //Check Validation
     if (!isValid) {
+      console.log(errors);
       return res.status(400).json(errors);
     }    
     

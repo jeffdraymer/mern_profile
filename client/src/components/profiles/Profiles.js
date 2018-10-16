@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Spinner from '../common/Spinner';
 
@@ -14,19 +15,24 @@ import ProfileItem from './ProfileItem';
     }
   render() {
       const { profiles, loading } = this.props.profile; 
+      const { isAuthenticated } = this.props.auth;
       let profileItems;
     
-      if(profiles === null || loading){
-        profileItems = <Spinner />;
-      }  else {
-          if(profiles.length > 0){
-            profileItems =  profiles.map(profile => (
-                <ProfileItem key={profile._id} profile={profile} />
-            ))
-          } else {
-              profileItems = <h4>No Profiles Found</h4>;
-          }
-      }
+      if(isAuthenticated){ 
+        if(profiles === null || loading){
+            profileItems = <Spinner />;
+        }  else {
+            if(profiles.length > 0){
+                profileItems =  profiles.map(profile => (
+                    <ProfileItem key={profile._id} profile={profile} />
+                ))
+            } else {
+                profileItems = <h4 >No Profiles Found</h4>;
+            }
+        }
+     } else {
+          profileItems = <h4 className="lead text-center"><Link to={'/register'}>Sign up</Link> to connect with other developer and talk shop!!</h4>
+     }
 
     return (
       <div className="profiles">
@@ -47,13 +53,15 @@ import ProfileItem from './ProfileItem';
   }
 }
 
-Profiles.Proptypes = {
-    getProfiles: PropTypes.func.isRequired,
-    profile: PropTypes.object.isRequired
-};
+ Profiles.Proptypes = {
+     getProfiles: PropTypes.func.isRequired,
+     profile: PropTypes.object.isRequired,
+     auth: PropTypes.object.isRequired
+ };
 
-const mapStateToProps = state => ({
-    profile: state.profile
-});
+ const mapStateToProps = state => ({
+     profile: state.profile,
+     auth: state.auth
+ });
 
 export default connect(mapStateToProps, { getProfiles })(Profiles);
