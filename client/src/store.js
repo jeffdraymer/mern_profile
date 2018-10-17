@@ -8,7 +8,7 @@ const initialState = {};
 const middleware = [thunk];
 
 //If working in development the add in the redux dev tool for chrome, else apply middleware as normal
-const store = (process.env.NODE_ENV 
+const store = (process.env.NODE_ENV  
         ? createStore(
                 rootReducer,
                 initialState,
