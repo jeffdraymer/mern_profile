@@ -15,23 +15,6 @@ const User = require("../../models/User");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
-// @route /api/users/
-// @desc Tests users route
-// @access Public
-router.get("/", (req, res) => res.json({ message: "Users Works" }));
-
-// @route /api/users/current
-// @desc Return current user
-// @access Private
-
-router.get(
-  "/current",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.json("Success");
-  }
-);
-
 // @route /api/users/register
 // @desc register users route
 // @access Public
@@ -42,36 +25,46 @@ router.post("/register", (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
-  User.findOne({ email: req.body.email }).then(user => {
+  //Check the DB for the entered email, 
+  //If it exists then return an error
+  User.findOne({ name: req.body.name }).then(user => {
     if (user) {
-      return res.status(400).json({ email: "Email already exists" });
+      return res.status(400).json({ name: "Username already exists" });
     } else {
-      //Using gravatar feature to display user avatar if available,
-      //else set avatar to default image
-      const avatar = gravatar.url(req.body.email, {
-        s: "200", //size
-        r: "pg", //rating
-        d: "mm" //default
-      });
+      //Check that the username does not already exist
+      User.findOne({ email: req.body.email }).then(user => {
 
-      const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        avatar,
-        password: req.body.password
-      });
+        if(user){
+          return res.status(400).json({ email: "Email already exists" });
+        } else{ 
+      
+          //Using gravatar feature to display user avatar if available,
+          //else set avatar to default image
+          const avatar = gravatar.url(req.body.email, {
+            s: "200", //size
+            r: "pg", //rating
+            d: "mm" //default
+          });
 
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(req.body.password, salt, (err, hash) => {
-          if (err) throw err;
-          newUser.password = hash;
-          newUser
-            .save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err));
-        });
-      });
+          const newUser = new User({
+            name: req.body.name,
+            email: req.body.email,
+            avatar,
+            password: req.body.password
+          });
+
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(req.body.password, salt, (err, hash) => {
+              if (err) throw err;
+              newUser.password = hash;
+              newUser
+                .save()
+                .then(user => res.json(user))
+                .catch(err => console.log(err));
+            });
+          }); 
+        }   
+     });
     }
   });
 });

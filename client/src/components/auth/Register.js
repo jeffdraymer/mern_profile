@@ -71,7 +71,7 @@ class Register extends Component {
                                     name="email"
                                     value={this.state.email}
                                     error={errors.email}
-                                    info="This site uses graviatr so if you would like a profile image, use a gravitar email"
+                                    info="This site uses gravatar so if you would like a profile image, use a gravitar email"
                                     type="email"
                                     onChange={this.onChange} />
                                 <TextFieldGroup

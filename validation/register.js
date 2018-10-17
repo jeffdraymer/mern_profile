@@ -11,12 +11,7 @@ module.exports = function validateRegisterInput(data) {
 
   //Name validation
   if (!Validator.isEmpty(data.name)) {
-    if (
-      !Validator.isLength(data.name, {
-        min: 2,
-        max: 30
-      })
-    ) {
+    if (!Validator.isLength(data.name, {min: 2,max: 30})) {
       errors.name = "Name must be between 2 and 30 characters";
     }
   } else {
@@ -33,11 +28,7 @@ module.exports = function validateRegisterInput(data) {
   //password validation
   if (!Validator.isEmpty(data.password)) {
     if (
-      !Validator.isLength(data.password, {
-        min: 6,
-        max: 30
-      })
-    ) {
+      !Validator.isLength(data.password, {min: 6, max: 30})) {
       errors.password = "Password must be between 6 and 30 characters";
     }
   } else {
